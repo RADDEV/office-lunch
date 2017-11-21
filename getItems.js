@@ -21,7 +21,10 @@ function setLunchData(){
         let abc = pageHTML.match(myReg);
         console.log('\n')
         let lastMenu = abc[0];
+        let dateReg = /(\d+\.\d+.\d+)(г\.)/gm;
+        let date = abc[0].match(dateReg);
         //console.log(abc[0]);
+        console.log(date[0].replace('г',''));
         let brReg = /<br \/>/gm;
         let tagReg = /<.+>/gm;
         let parReg = /<p>/gm;
@@ -44,9 +47,9 @@ function setLunchData(){
         //     console.log(i+' '+desertsArray[i]);
         // }
 
-        console.log(soupArray);
-        console.log(mainDishArray);
-        console.log(desertsArray);
+        // console.log(soupArray);
+        // console.log(mainDishArray);
+        // console.log(desertsArray);
     });
 }
   
