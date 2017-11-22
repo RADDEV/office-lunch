@@ -39,9 +39,9 @@ function setLunchData(){
 
         let itemRegex = /\d\./gm;
 
-        let soupArray = soups.split(itemRegex);
-        let mainDishArray = mainDish.split(itemRegex);
-        let desertsArray = deserts.split(itemRegex);
+        let soupArray = soups.split(itemRegex).filter(function(a){return a !== '\n '});
+        let mainDishArray = mainDish.split(itemRegex).filter(function(a){return a !== '\n '});
+        let desertsArray = deserts.split(itemRegex).filter(function(a){return a !== '\n '});
 
         // for(let i = 1; i < desertsArray.length; i++){
         //     console.log(i+' '+desertsArray[i]);

@@ -135,9 +135,9 @@ function setLunchData(auth){
 
         let itemRegex = /\d\./gm;
 
-        let soupArray = soups.split(itemRegex);
-        let mainDishArray = mainDish.split(itemRegex);
-        let desertsArray = deserts.split(itemRegex);
+        let soupArray = soups.split(itemRegex).filter(function(a){return a !== '\n '});
+        let mainDishArray = mainDish.split(itemRegex).filter(function(a){return a !== '\n '});
+        let desertsArray = deserts.split(itemRegex).filter(function(a){return a !== '\n '});
 
         for(let i = 1; i < desertsArray.length; i++){
             console.log(i+' '+desertsArray[i]);
@@ -212,7 +212,7 @@ function setLunchData(auth){
 
         sheets.spreadsheets.values.update({
           spreadsheetId: '12i68YkBobxZsn0Prbvob-wHbSZr1Qx8lD--YNYaeAXc',
-          range: 'Sheet1!B5:B18',
+          range: 'Sheet1!B6:B18',
           auth:auth,
           valueInputOption: "USER_ENTERED",
           resource: body          
