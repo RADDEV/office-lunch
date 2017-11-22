@@ -10,7 +10,7 @@ var googleAuth = require('google-auth-library');
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
-var SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
+var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'sheets.googleapis.com-nodejs-quickstart.json';
@@ -211,9 +211,10 @@ function setLunchData(auth){
         };
 
         sheets.spreadsheets.values.update({
-          spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+          spreadsheetId: '12i68YkBobxZsn0Prbvob-wHbSZr1Qx8lD--YNYaeAXc',
           range: 'Sheet1!B5:B18',
           auth:auth,
+          valueInputOption: "USER_ENTERED",
           resource: body          
         }, function(err, result){
           if(err){
