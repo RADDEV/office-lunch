@@ -104,7 +104,7 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
 *Set the google spreadsheet data with todays lunch avaliable at their Facebook page
 * https://docs.google.com/spreadsheets/d/12i68YkBobxZsn0Prbvob-wHbSZr1Qx8lD--YNYaeAXc/edit#gid=0
 */
-function setLunchData(){
+function setLunchData(auth){
     var extractor = new BodyExtractor({
         url: 'https://www.facebook.com/pg/RestorantOtecestvo/posts/?ref=page_internal'
     });
@@ -146,25 +146,84 @@ function setLunchData(){
         //console.log("Sopu\n" + deserts);
 
         var sheets = google.sheets('v4');
-        sheets.spreadsheets.values.get({
-            auth: auth,
-            spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-            range: 'Class Data!A2:E',
-          }, function(err, responce){
-              if(err){
-                  console.log('The google sheets API has encountered and arror: ' + err);
-                  return;
-              }
+        
+        // sheets.spreadsheets.values.get({
+        //     auth: auth,
+        //     spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+        //     range: 'Class Data!A2:E',
+        //   }, function(err, responce){
+        //       if(err){
+        //           console.log('The google sheets API has encountered and arror: ' + err);
+        //           return;
+        //       }
 
-              sheets.getCells({
-                'min-row': 6,
-                'max-row': 18,
-                'return-empty': true 
-              },function(err, cells){
+        //       sheets.getCells({
+        //         'min-row': 6,
+        //         'max-row': 18,
+        //         'return-empty': true 
+        //       },function(err, cells){
                         
-            });
+        //     });
 
-          });
+        //   });
+
+        let values = [
+          [
+            soupArray[0]
+          ],
+          [
+            soupArray[1]
+          ],
+          [
+            soupArray[2]
+          ],
+          [
+            soupArray[3]
+          ],
+          [
+            mainDishArray[0]
+          ],
+          [
+            mainDishArray[1]
+          ],
+          [
+            mainDishArray[2]
+          ],
+          [
+            mainDishArray[3]
+          ],
+          [
+            desertsArray[0]
+          ],
+          [
+            desertsArray[1]
+          ],
+          [
+            desertsArray[2]
+          ],
+          [
+            desertsArray[3]
+          ]
+        ];
+
+        let body = {
+          values:values
+        };
+
+        sheets.spreadsheets.values.update({
+          spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+          range: 'Sheet1!B5:B18',
+          auth:auth,
+          resource: body          
+        }, function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log('%d cells updated.', result.updatedCells);
+          }
+        });
+
     });
 }
   
