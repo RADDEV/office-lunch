@@ -120,6 +120,18 @@ function setLunchData(auth){
         let abc = pageHTML.match(myReg);
         console.log('\n')
         let lastMenu = abc[0];
+        let dateReg = /(\S+\d)(?=г\.)/gm;
+        let date = abc[0].match(dateReg);
+        var d = new Date();
+        var day = d.getDate();
+        var month = d.getMonth();
+        var year = d.getFullYear();
+        if(date != day+'.'+(month+1)+'.'+year.toString().substr(-2)){
+          console.log('Greda');
+          console.log(date);
+          console.log(day+'.'+(month+1)+'.'+year.toString().substr(-2));
+          return;
+        }
         //console.log(abc[0]);
         let brReg = /<br \/>/gm;
         let tagReg = /<.+>/gm;
@@ -139,9 +151,9 @@ function setLunchData(auth){
         let mainDishArray = mainDish.split(itemRegex).filter(function(a){return a !== '\n '});
         let desertsArray = deserts.split(itemRegex).filter(function(a){return a !== '\n '});
 
-        for(let i = 1; i < desertsArray.length; i++){
-            console.log(i+' '+desertsArray[i]);
-        }
+        // for(let i = 1; i < desertsArray.length; i++){
+        //     console.log(i+' '+desertsArray[i]);
+        // }
 
         //console.log("Sopu\n" + deserts);
 
@@ -216,6 +228,21 @@ function setLunchData(auth){
           auth:auth,
           valueInputOption: "USER_ENTERED",
           resource: body          
+        }, function(err, result){
+          if(err){
+            console.log(err);
+          }
+          else{
+            console.log('%d cells updated.', result.updatedCells);
+          }
+        });
+
+        sheets.spreadsheets.values.update({
+          spreadsheetId: '12i68YkBobxZsn0Prbvob-wHbSZr1Qx8lD--YNYaeAXc',
+          range: 'Sheet1!B1:B1',
+          auth:auth,
+          valueInputOption: "USER_ENTERED",
+          resource: {values:[date]}        
         }, function(err, result){
           if(err){
             console.log(err);
