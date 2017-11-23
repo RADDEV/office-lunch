@@ -24,6 +24,9 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     // Authorize a client with the loaded credentials, then call the
     // Google Sheets API.
     authorize(JSON.parse(content), setLunchData);
+    setInterval(function(){
+      authorize(JSON.parse(content), setLunchData);
+    },2700000);
   });
   
   /**
