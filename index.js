@@ -25,8 +25,9 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
     // Google Sheets API.
     authorize(JSON.parse(content), setLunchData);
     setInterval(function(){
+      console.log("Table updated :)");
       authorize(JSON.parse(content), setLunchData);
-    },2700000);
+    },300000);
   });
   
   /**
@@ -121,7 +122,7 @@ function setLunchData(auth){
         //console.log(pageHTML);
         let myReg = /Ресторант „Отечество“([\S\s]*?)<\/div>/gm;
         let abc = pageHTML.match(myReg);
-        console.log('\n')
+        
         let lastMenu = abc[0];
         let dateReg = /(\S+\d)(?=г\.)/gm;
         let date = abc[0].match(dateReg);
@@ -129,12 +130,12 @@ function setLunchData(auth){
         var day = d.getDate();
         var month = d.getMonth();
         var year = d.getFullYear();
-        if(date != day+'.'+(month+1)+'.'+year.toString().substr(-2)){
-          console.log('Greda');
-          console.log(date);
-          console.log(day+'.'+(month+1)+'.'+year.toString().substr(-2));
-          return;
-        }
+        //if(date != day+'.'+(month+1)+'.'+year.toString().substr(-2)){
+			console.log('Greda');
+			console.log(date);
+			console.log(day+'.'+(month+1)+'.'+year.toString().substr(-2));
+			//return;
+        //}
         //console.log(abc[0]);
         let brReg = /<br \/>/gm;
         let tagReg = /<.+>/gm;
